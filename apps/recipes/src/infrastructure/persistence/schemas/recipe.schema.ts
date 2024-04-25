@@ -1,7 +1,7 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { RecipeDetail } from './recipe-detail.schema';
 
-@Schema()
+@Schema({ timestamps: true })
 export class Recipe {
   @Prop({ required: true })
   name: string;
