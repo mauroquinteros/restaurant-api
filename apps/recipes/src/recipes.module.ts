@@ -1,8 +1,9 @@
 import { Module } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
 import { SaveIngredient } from './application/save-ingredient';
+import { SaveRecipe } from './application/save-recipe';
 import { ConfigModuleOptions } from './infrastructure/config/config.options';
-import { IngredientController } from './infrastructure/http';
+import { IngredientController, RecipeController } from './infrastructure/http';
 import { ValidationModule } from './infrastructure/http/validation/validation.module';
 import { MongoModule } from './infrastructure/persistence/databases';
 import { Ingredient, IngredientSchema, Recipe, RecipeSchema } from './infrastructure/persistence/schemas';
@@ -17,7 +18,7 @@ import { Ingredient, IngredientSchema, Recipe, RecipeSchema } from './infrastruc
       { name: Ingredient.name, schema: IngredientSchema },
     ]),
   ],
-  controllers: [IngredientController],
-  providers: [SaveIngredient],
+  controllers: [IngredientController, RecipeController],
+  providers: [SaveIngredient, SaveRecipe],
 })
 export class RecipesModule {}

@@ -4,10 +4,10 @@ import { SaveIngredientDTO } from './dtos';
 
 @Controller('ingredients')
 export class IngredientController {
-  constructor(private readonly saveIngredient: SaveIngredient) {}
+  constructor(private readonly handler: SaveIngredient) {}
 
   @Post()
-  async createIngredient(@Body() body: SaveIngredientDTO.RequestBody) {
-    return this.saveIngredient.execute(new SaveIngredientCommand(body.name, body.stock));
+  async saveIngredient(@Body() body: SaveIngredientDTO.RequestBody) {
+    return this.handler.execute(new SaveIngredientCommand(body.name, body.stock));
   }
 }

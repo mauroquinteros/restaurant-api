@@ -7,7 +7,7 @@ export class Recipe {
   name: string;
 
   @Prop({ type: [RecipeDetail], default: [] })
-  detail: RecipeDetail[];
+  ingredients: RecipeDetail[];
 }
 
 export const RecipeSchema = SchemaFactory.createForClass(Recipe);
