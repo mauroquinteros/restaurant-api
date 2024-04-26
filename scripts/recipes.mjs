@@ -42,7 +42,6 @@ async function insertData() {
         timestamps: true,
       },
     );
-
     const Recipe = mongoose.model('Recipe', RecipeSchema);
 
     const data = fs.readFileSync('./recipes.json');

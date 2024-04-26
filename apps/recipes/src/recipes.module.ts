@@ -1,6 +1,8 @@
 import { Module } from '@nestjs/common';
 import { CqrsModule } from '@nestjs/cqrs';
 import { MongooseModule } from '@nestjs/mongoose';
+import { GetIngredientsHandler } from './application/get-ingredients';
+import { GetRecipesHandler } from './application/get-recipes';
 import { SaveIngredientHandler } from './application/save-ingredient';
 import { SaveRecipeHandler } from './application/save-recipe';
 import { ConfigModuleOptions } from './infrastructure/config/config.options';
@@ -21,6 +23,6 @@ import { Ingredient, IngredientSchema, Recipe, RecipeSchema } from './infrastruc
     ]),
   ],
   controllers: [IngredientController, RecipeController],
-  providers: [SaveIngredientHandler, SaveRecipeHandler],
+  providers: [SaveIngredientHandler, SaveRecipeHandler, GetIngredientsHandler, GetRecipesHandler],
 })
 export class RecipesModule {}
