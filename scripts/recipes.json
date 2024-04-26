@@ -1,0 +1,116 @@
+[
+  {
+    "name": "chicken and rice",
+    "ingredients": [
+      {
+        "name": "rice",
+        "quantity": 1
+      },
+      {
+        "name": "chicken",
+        "quantity": 1
+      }
+    ]
+  },
+  {
+    "name": "chicken salad",
+    "ingredients": [
+      {
+        "name": "tomato",
+        "quantity": 1
+      },
+      {
+        "name": "lemon",
+        "quantity": 1
+      },
+      {
+        "name": "lettuce",
+        "quantity": 1
+      },
+      {
+        "name": "chicken",
+        "quantity": 1
+      }
+    ]
+  },
+  {
+    "name": "meat and potato salad",
+    "ingredients": [
+      {
+        "name": "potato",
+        "quantity": 4
+      },
+      {
+        "name": "lettuce",
+        "quantity": 2
+      },
+      {
+        "name": "onion",
+        "quantity": 2
+      },
+      {
+        "name": "meat",
+        "quantity": 1
+      }
+    ]
+  },
+  {
+    "name": "cheese hamburger",
+    "ingredients": [
+      {
+        "name": "ketchup",
+        "quantity": 2
+      },
+      {
+        "name": "onion",
+        "quantity": 3
+      },
+      {
+        "name": "cheese",
+        "quantity": 2
+      },
+      {
+        "name": "meat",
+        "quantity": 1
+      }
+    ]
+  },
+  {
+    "name": "hawaiian pizza",
+    "ingredients": [
+      {
+        "name": "tomato",
+        "quantity": 2
+      },
+      {
+        "name": "potato",
+        "quantity": 2
+      },
+      {
+        "name": "cheese",
+        "quantity": 3
+      },
+      {
+        "name": "meat",
+        "quantity": 3
+      }
+    ]
+  },
+  {
+    "name": "salt beef",
+    "ingredients": [
+      {
+        "name": "potato",
+        "quantity": 2
+      },
+      {
+        "name": "rice",
+        "quantity": 2
+      },
+      {
+        "name": "meat",
+        "quantity": 1
+      }
+    ]
+  }
+]

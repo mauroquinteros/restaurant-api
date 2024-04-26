@@ -1,0 +1,42 @@
+[
+  {
+    "name": "tomato",
+    "stock": 10
+  },
+  {
+    "name": "lemon",
+    "stock": 10
+  },
+  {
+    "name": "potato",
+    "stock": 10
+  },
+  {
+    "name": "rice",
+    "stock": 10
+  },
+  {
+    "name": "ketchup",
+    "stock": 10
+  },
+  {
+    "name": "lettuce",
+    "stock": 10
+  },
+  {
+    "name": "onion",
+    "stock": 10
+  },
+  {
+    "name": "cheese",
+    "stock": 10
+  },
+  {
+    "name": "meat",
+    "stock": 10
+  },
+  {
+    "name": "chicken",
+    "stock": 10
+  }
+]
