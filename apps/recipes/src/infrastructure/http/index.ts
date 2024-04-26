@@ -1,2 +1,2 @@
-export * from './ingredient.controller';
-export * from './recipe.controller';
+export * from './controllers/ingredient.controller';
+export * from './controllers/recipe.controller';

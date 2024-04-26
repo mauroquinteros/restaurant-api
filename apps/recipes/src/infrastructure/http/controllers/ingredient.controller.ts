@@ -1,6 +1,6 @@
 import { Body, Controller, Post } from '@nestjs/common';
-import { SaveIngredient, SaveIngredientCommand } from '../../application/save-ingredient';
-import { SaveIngredientDTO } from './dtos';
+import { SaveIngredient, SaveIngredientCommand } from '../../../application/save-ingredient';
+import { SaveIngredientDTO } from '../dtos';
 
 @Controller('ingredients')
 export class IngredientController {
