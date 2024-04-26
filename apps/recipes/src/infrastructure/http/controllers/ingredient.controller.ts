@@ -1,13 +1,14 @@
 import { Body, Controller, Post } from '@nestjs/common';
-import { SaveIngredient, SaveIngredientCommand } from '../../../application/save-ingredient';
+import { CommandBus, QueryBus } from '@nestjs/cqrs';
+import { SaveIngredientCommand } from '../../../application/save-ingredient';
 import { SaveIngredientDTO } from '../dtos';
 
 @Controller('ingredients')
 export class IngredientController {
-  constructor(private readonly handler: SaveIngredient) {}
+  constructor(protected readonly commandBus: CommandBus, protected readonly queryBus: QueryBus) {}
 
   @Post()
   async saveIngredient(@Body() body: SaveIngredientDTO.RequestBody) {
-    return this.handler.execute(new SaveIngredientCommand(body.name, body.stock));
+    return this.commandBus.execute(new SaveIngredientCommand(body.name, body.stock));
   }
 }

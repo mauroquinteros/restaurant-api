@@ -1,7 +1,8 @@
 import { Module } from '@nestjs/common';
+import { CqrsModule } from '@nestjs/cqrs';
 import { MongooseModule } from '@nestjs/mongoose';
-import { SaveIngredient } from './application/save-ingredient';
-import { SaveRecipe } from './application/save-recipe';
+import { SaveIngredientHandler } from './application/save-ingredient';
+import { SaveRecipeHandler } from './application/save-recipe';
 import { ConfigModuleOptions } from './infrastructure/config/config.options';
 import { IngredientController, RecipeController } from './infrastructure/http';
 import { ValidationModule } from './infrastructure/http/validation/validation.module';
@@ -12,6 +13,7 @@ import { Ingredient, IngredientSchema, Recipe, RecipeSchema } from './infrastruc
   imports: [
     ConfigModuleOptions,
     ValidationModule,
+    CqrsModule,
     MongoModule,
     MongooseModule.forFeature([
       { name: Recipe.name, schema: RecipeSchema },
@@ -19,6 +21,6 @@ import { Ingredient, IngredientSchema, Recipe, RecipeSchema } from './infrastruc
     ]),
   ],
   controllers: [IngredientController, RecipeController],
-  providers: [SaveIngredient, SaveRecipe],
+  providers: [SaveIngredientHandler, SaveRecipeHandler],
 })
 export class RecipesModule {}

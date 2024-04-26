@@ -1,42 +1,42 @@
 [
   {
     "name": "tomato",
-    "stock": 10
+    "stock": 5
   },
   {
     "name": "lemon",
-    "stock": 10
+    "stock": 5
   },
   {
     "name": "potato",
-    "stock": 10
+    "stock": 5
   },
   {
     "name": "rice",
-    "stock": 10
+    "stock": 5
   },
   {
     "name": "ketchup",
-    "stock": 10
+    "stock": 5
   },
   {
     "name": "lettuce",
-    "stock": 10
+    "stock": 5
   },
   {
     "name": "onion",
-    "stock": 10
+    "stock": 5
   },
   {
     "name": "cheese",
-    "stock": 10
+    "stock": 5
   },
   {
     "name": "meat",
-    "stock": 10
+    "stock": 5
   },
   {
     "name": "chicken",
-    "stock": 10
+    "stock": 5
   }
 ]
