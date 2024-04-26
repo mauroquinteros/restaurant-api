@@ -1,7 +1,7 @@
 import { Type } from 'class-transformer';
 import { IsArray, IsNumber, IsString, ValidateNested } from 'class-validator';
 
-class SaveRecipeDetailRequestBody {
+class SaveRecipeIngredientsRequestBody {
   @IsString()
   readonly name: string;
 
@@ -15,6 +15,6 @@ export class SaveRecipeRequestBody {
 
   @IsArray()
   @ValidateNested({ each: true })
-  @Type(() => SaveRecipeDetailRequestBody)
-  readonly ingredients: SaveRecipeDetailRequestBody[];
+  @Type(() => SaveRecipeIngredientsRequestBody)
+  readonly ingredients: SaveRecipeIngredientsRequestBody[];
 }
