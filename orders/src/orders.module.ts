@@ -1,9 +1,10 @@
 import { Module } from '@nestjs/common';
+import { ConfigModuleOptions } from './infrastructure/config/config.options';
 import { OrdersController } from './orders.controller';
 import { OrdersService } from './orders.service';
 
 @Module({
-  imports: [],
+  imports: [ConfigModuleOptions],
   controllers: [OrdersController],
   providers: [OrdersService],
 })
