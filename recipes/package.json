@@ -1,27 +1,23 @@
 {
-  "name": "alegra-challenge",
+  "name": "boilerplate-nest",
   "version": "0.0.1",
   "description": "",
   "author": "",
   "private": true,
   "license": "UNLICENSED",
   "scripts": {
-    "prepare": "husky",
     "build": "nest build",
     "start": "nest start",
-    "dev-orders": "nest start orders --watch",
-    "dev-recipes": "nest start recipes --watch",
-    "dev-stock": "nest start stock --watch",
-    "start:dev": "concurrently -c \"cyan,red,yellow\" \"npm:dev-*\"",
+    "start:dev": "nest start --watch",
     "start:debug": "nest start --debug --watch",
-    "start:prod": "node dist/apps/alegra-challenge/main",
+    "start:prod": "node dist/main",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
     "lint": "eslint \"{src,apps,libs,test}/**/*.ts\" --fix",
     "test": "jest",
     "test:watch": "jest --watch",
     "test:cov": "jest --coverage",
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
-    "test:e2e": "jest --config ./apps/alegra-challenge/test/jest-e2e.json"
+    "test:e2e": "jest --config ./test/jest-e2e.json"
   },
   "dependencies": {
     "@nestjs/common": "^10.3.8",
@@ -72,13 +68,8 @@
     "tsconfig-paths": "^4.2.0",
     "typescript": "^5.4.5"
   },
-  "lint-staged": {
-    "**/*.{js,ts}": [
-      "eslint --fix",
-      "prettier --write"
-    ],
-    "**/*.{html,css,scss,json,md,yaml,yml}": [
-      "prettier --write"
-    ]
+  "engines": {
+    "node": ">=18.16.0",
+    "npm": ">=9.5.0"
   }
 }
