@@ -1,5 +1,5 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { Status } from '../../../domain/enums/';
+import { Status } from '../../../domain/enums';
 import { OrderDetail } from './order-detail.schema';
 
 @Schema({ timestamps: true })
