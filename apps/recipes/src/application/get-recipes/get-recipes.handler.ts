@@ -24,7 +24,7 @@ export class GetRecipesHandler implements IQueryHandler<GetRecipesQuery> {
           return { name: data.name, quantity };
         }),
       );
-      response.push(new GetRecipesResponse(recipe.name, ingredients));
+      response.push(new GetRecipesResponse(recipe.id, recipe.name, ingredients));
     }
 
     return response;

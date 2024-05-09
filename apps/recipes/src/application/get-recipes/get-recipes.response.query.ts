@@ -3,5 +3,5 @@ class Ingredients {
 }
 
 export class GetRecipesResponse {
-  constructor(readonly name: string, readonly ingredients: Ingredients[]) {}
+  constructor(readonly id: string, readonly name: string, readonly ingredients: Ingredients[]) {}
 }
