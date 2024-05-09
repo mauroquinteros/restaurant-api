@@ -4,6 +4,7 @@ import { ClientProxy } from '@nestjs/microservices';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { lastValueFrom } from 'rxjs';
+import { Recipes } from '../../domain/entities/recipes';
 import { IRecipe } from '../../domain/interfaces';
 import { Order } from '../../infrastructure/persistence/schemas';
 import { SaveOrderCommand } from './save-order.command';
@@ -30,18 +31,7 @@ export class SaveOrderHandler implements ICommandHandler<SaveOrderCommand> {
 
   private async getRandomRecipes(quantity: number) {
     const recipes: IRecipe[] = await lastValueFrom(this.client.send({ cmd: 'get_recipes' }, {}));
-    const randomRecipes: IRecipe[] = [];
-
-    if (recipes.length > 0) {
-      for (let i = 0; i < quantity; i++) {
-        const randomValue = Math.floor(Math.random() * recipes.length);
-        randomRecipes.push(recipes[randomValue]);
-      }
-    }
-
-    return randomRecipes.map((recipe) => ({
-      id: recipe.id,
-      name: recipe.name,
-    }));
+    const randomRecipes = Recipes.getRandomRecipes(quantity, recipes);
+    return randomRecipes;
   }
 }
