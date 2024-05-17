@@ -8,6 +8,7 @@ import { Recipes } from '../../domain/entities/recipes';
 import { IRecipe } from '../../domain/interfaces';
 import { Order } from '../../infrastructure/persistence/schemas';
 import { SaveOrderCommand } from './save-order.command';
+import { UpdateStockEvent } from './udpate-stock.event';
 
 @CommandHandler(SaveOrderCommand)
 export class SaveOrderHandler implements ICommandHandler<SaveOrderCommand> {
@@ -24,8 +25,9 @@ export class SaveOrderHandler implements ICommandHandler<SaveOrderCommand> {
       state: command.status,
       recipes: recipes,
     });
-
     const response = await order.save();
+
+    this.client.emit('update_stock', new UpdateStockEvent(order.id, recipes));
     return response;
   }
 
