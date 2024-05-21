@@ -5,6 +5,7 @@ import { GetIngredientsHandler } from './application/get-ingredients';
 import { GetRecipesHandler } from './application/get-recipes';
 import { SaveIngredientHandler } from './application/save-ingredient';
 import { SaveRecipeHandler } from './application/save-recipe';
+import { UpdateStockHandler } from './application/update-stock';
 import { ConfigModuleOptions } from './infrastructure/config/config.options';
 import { IngredientController, RecipeController } from './infrastructure/http';
 import { ValidationModule } from './infrastructure/http/validation/validation.module';
@@ -23,6 +24,6 @@ import { Ingredient, IngredientSchema, Recipe, RecipeSchema } from './infrastruc
     ]),
   ],
   controllers: [IngredientController, RecipeController],
-  providers: [SaveIngredientHandler, SaveRecipeHandler, GetIngredientsHandler, GetRecipesHandler],
+  providers: [SaveIngredientHandler, SaveRecipeHandler, GetIngredientsHandler, GetRecipesHandler, UpdateStockHandler],
 })
 export class RecipesModule {}
