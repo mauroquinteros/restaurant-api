@@ -1,5 +1,7 @@
 import { Module } from '@nestjs/common';
+import { ConfigModule, ConfigService } from '@nestjs/config';
 import { CqrsModule } from '@nestjs/cqrs';
+import { ClientsModule, Transport } from '@nestjs/microservices';
 import { MongooseModule } from '@nestjs/mongoose';
 import { GetIngredientsHandler } from './application/get-ingredients';
 import { GetRecipesHandler } from './application/get-recipes';
@@ -21,6 +23,19 @@ import { Ingredient, IngredientSchema, Recipe, RecipeSchema } from './infrastruc
     MongooseModule.forFeature([
       { name: Recipe.name, schema: RecipeSchema },
       { name: Ingredient.name, schema: IngredientSchema },
+    ]),
+    ClientsModule.registerAsync([
+      {
+        name: 'MARKET_SERVICE',
+        imports: [ConfigModule],
+        inject: [ConfigService],
+        useFactory: (config: ConfigService) => ({
+          transport: Transport.TCP,
+          options: {
+            port: config.get<number>('market.port'),
+          },
+        }),
+      },
     ]),
   ],
   controllers: [IngredientController, RecipeController],
