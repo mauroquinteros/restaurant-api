@@ -24,25 +24,26 @@ export class UpdateStockHandler implements ICommandHandler<UpdateStockCommand> {
     );
 
     for (const recipe of recipes) {
-      console.log('recipe: ', recipe.id);
+      // TODO: Improve the logs
+      // console.log('recipe: ', recipe.id);
 
       for (const { ingredient, quantity } of recipe.ingredients) {
         const data = await this.ingredientModel.findById(ingredient).exec();
-        console.log('-------------------');
-        console.log(data.name, 'current stock: ', data.stock);
-        console.log(data.name, 'required quantity: ', quantity);
+        // console.log('-------------------');
+        // console.log(data.name, 'current stock: ', data.stock);
+        // console.log(data.name, 'required quantity: ', quantity);
 
         if (data.stock < quantity) {
-          console.log('Need to buy more ingredients!');
+          // console.log('Need to buy more ingredients!');
           const newStock = await this.getIngredientStock(data.name, data.stock, quantity);
-          console.log(data.name, 'stock after buying: ', newStock);
+          // console.log(data.name, 'stock after buying: ', newStock);
           data.stock = newStock;
         }
 
         data.stock -= quantity;
 
-        console.log(data.name, 'stock after discount quantity: ', data.stock);
-        console.log('-------------------');
+        // console.log(data.name, 'stock after discount quantity: ', data.stock);
+        // console.log('-------------------');
 
         await data.save();
       }
@@ -50,36 +51,14 @@ export class UpdateStockHandler implements ICommandHandler<UpdateStockCommand> {
   }
 
   private async getIngredientStock(ingredient: string, currentStock: number, quantity: number) {
-    // TODO: Improve the logs
-    // TODO: Quizas el totalStock < quantity no funciona porque no parece que se sume el totalStock
     let totalStock = currentStock;
 
     while (totalStock < quantity) {
-      const newStock = await this.buyIngredientStock(ingredient);
-      console.log(ingredient, 'stock buy it from the market: ', newStock.quantitySold);
+      const newStock = await lastValueFrom(this.client.send({ cmd: 'buy_ingredient' }, { ingredient }));
+      // console.log(ingredient, 'stock buy it from the market: ', newStock.quantitySold);
       totalStock += newStock.quantitySold;
     }
 
     return totalStock;
-  }
-
-  private async buyIngredientStock(ingredient: string): Promise<{ quantitySold: number }> {
-    // TODO: Move the retry logic to the market microservice
-    const delay = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
-    let retries = 0;
-    const maxRetries = 10;
-
-    while (retries < maxRetries) {
-      const newIngredient = await lastValueFrom(this.client.send({ cmd: 'buy_ingredient' }, { ingredient }));
-
-      if (newIngredient.quantitySold > 0) {
-        return newIngredient;
-      }
-      retries++;
-      await delay(500);
-    }
-
-    console.log('no debe llegar aqui');
-    throw new Error('Maximum retries exceeded!');
   }
 }
