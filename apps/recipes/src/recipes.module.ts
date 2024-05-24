@@ -36,6 +36,17 @@ import { Ingredient, IngredientSchema, Recipe, RecipeSchema } from './infrastruc
           },
         }),
       },
+      {
+        name: 'ORDERS_SERVICE',
+        imports: [ConfigModule],
+        inject: [ConfigService],
+        useFactory: (config: ConfigService) => ({
+          transport: Transport.TCP,
+          options: {
+            port: config.get<number>('orders.port'),
+          },
+        }),
+      },
     ]),
   ],
   controllers: [IngredientController, RecipeController],

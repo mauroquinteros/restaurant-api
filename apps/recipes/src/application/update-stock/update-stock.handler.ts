@@ -1,18 +1,22 @@
-import { Inject } from '@nestjs/common';
+import { Inject, Logger } from '@nestjs/common';
 import { CommandHandler, ICommandHandler } from '@nestjs/cqrs';
 import { ClientProxy } from '@nestjs/microservices';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { lastValueFrom } from 'rxjs';
 import { Ingredient, Recipe } from '../../infrastructure/persistence/schemas';
+import { UpdateOrderStatusEvent } from './udpate-order-status.event';
 import { UpdateStockCommand } from './update-stock.command';
 
 @CommandHandler(UpdateStockCommand)
 export class UpdateStockHandler implements ICommandHandler<UpdateStockCommand> {
+  private readonly logger = new Logger(UpdateStockHandler.name);
+
   constructor(
     @InjectModel(Recipe.name) private recipeModel: Model<Recipe>,
     @InjectModel(Ingredient.name) private ingredientModel: Model<Ingredient>,
-    @Inject('MARKET_SERVICE') private client: ClientProxy,
+    @Inject('MARKET_SERVICE') private marketClient: ClientProxy,
+    @Inject('ORDERS_SERVICE') private ordersClient: ClientProxy,
   ) {}
 
   async execute(command: UpdateStockCommand): Promise<void> {
@@ -24,41 +28,35 @@ export class UpdateStockHandler implements ICommandHandler<UpdateStockCommand> {
     );
 
     for (const recipe of recipes) {
-      // TODO: Improve the logs
-      // console.log('recipe: ', recipe.id);
+      this.logger.log(`Checking the stock for recipe ${recipe.id}`);
 
       for (const { ingredient, quantity } of recipe.ingredients) {
         const data = await this.ingredientModel.findById(ingredient).exec();
-        // console.log('-------------------');
-        // console.log(data.name, 'current stock: ', data.stock);
-        // console.log(data.name, 'required quantity: ', quantity);
+        this.logger.log(`Current stock for ${data.name}: ${data.stock}`);
+        this.logger.log(`Required quantity for ${data.name}: ${quantity}`);
 
         if (data.stock < quantity) {
-          // console.log('Need to buy more ingredients!');
-          const newStock = await this.getIngredientStock(data.name, data.stock, quantity);
-          // console.log(data.name, 'stock after buying: ', newStock);
-          data.stock = newStock;
+          data.stock = await this.getIngredientStock(data.name, data.stock, quantity);
+          this.logger.log(`Stock for ${data.name} after buying: ${data.stock}`);
         }
 
         data.stock -= quantity;
-
-        // console.log(data.name, 'stock after discount quantity: ', data.stock);
-        // console.log('-------------------');
-
+        this.logger.log(`Stock for ${data.name} after discount required quantity: ${data.stock}`);
         await data.save();
       }
     }
+
+    this.logger.log(`Updating order status for order ${command.orderId}`);
+    this.ordersClient.emit('update_order_status', new UpdateOrderStatusEvent(command.orderId));
   }
 
   private async getIngredientStock(ingredient: string, currentStock: number, quantity: number) {
     let totalStock = currentStock;
 
     while (totalStock < quantity) {
-      const newStock = await lastValueFrom(this.client.send({ cmd: 'buy_ingredient' }, { ingredient }));
-      // console.log(ingredient, 'stock buy it from the market: ', newStock.quantitySold);
+      const newStock = await lastValueFrom(this.marketClient.send({ cmd: 'buy_ingredient' }, { ingredient }));
       totalStock += newStock.quantitySold;
     }
-
     return totalStock;
   }
 }
