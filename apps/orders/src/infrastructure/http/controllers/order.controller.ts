@@ -1,6 +1,7 @@
 import { Body, Controller } from '@nestjs/common';
 import { CommandBus, QueryBus } from '@nestjs/cqrs';
 import { EventPattern, MessagePattern } from '@nestjs/microservices';
+import { GetOrdersQuery, GetOrdersResponse } from '../../../application/get-orders';
 import { SaveOrderCommand } from '../../../application/save-order';
 import { UpdateOrderStatusCommand } from '../../../application/update-order-status';
 import { SaveOrderDTO, UpdateOrderStatusDTO } from '../dtos';
@@ -8,6 +9,11 @@ import { SaveOrderDTO, UpdateOrderStatusDTO } from '../dtos';
 @Controller()
 export class OrderController {
   constructor(protected readonly commandBus: CommandBus, protected readonly queryBus: QueryBus) {}
+
+  @MessagePattern({ cmd: 'get_orders' })
+  async getOrders(): Promise<GetOrdersResponse> {
+    return this.queryBus.execute(new GetOrdersQuery());
+  }
 
   @MessagePattern({ cmd: 'save_order' })
   async saveOrder(@Body() body: SaveOrderDTO.RequestBody) {

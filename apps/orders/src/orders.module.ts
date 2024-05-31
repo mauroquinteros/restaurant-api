@@ -3,6 +3,7 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import { CqrsModule } from '@nestjs/cqrs';
 import { ClientsModule, Transport } from '@nestjs/microservices';
 import { MongooseModule } from '@nestjs/mongoose';
+import { GetOrdersHandler } from './application/get-orders';
 import { SaveOrderHandler } from './application/save-order';
 import { UpdateOrderStatusHandler } from './application/update-order-status';
 import { ConfigModuleOptions } from './infrastructure/config/config.options';
@@ -33,6 +34,6 @@ import { Order, OrderSchema } from './infrastructure/persistence/schemas';
     ]),
   ],
   controllers: [OrderController],
-  providers: [SaveOrderHandler, UpdateOrderStatusHandler],
+  providers: [SaveOrderHandler, UpdateOrderStatusHandler, GetOrdersHandler],
 })
 export class OrdersModule {}
