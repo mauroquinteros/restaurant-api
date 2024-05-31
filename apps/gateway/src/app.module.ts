@@ -1,10 +1,15 @@
 import { Module } from '@nestjs/common';
-import { ConfigModuleOptions } from './infrastructure/config/config.options';
-import { ValidationModule } from './infrastructure/validation/validation.module';
-import { OrdersModule } from './modules/orders/orders.module';
-import { RecipesModule } from './modules/recipes/recipes.module';
+import { ConfigModuleOptions } from './config/config.options';
+import { GatewayModule } from './modules/gateway/gateway.module';
+import { WebSocketModule } from './modules/websocket/websocket.module';
+import { ValidationModule } from './validation/validation.module';
 
 @Module({
-  imports: [ConfigModuleOptions, ValidationModule, RecipesModule, OrdersModule],
+  imports: [
+    ConfigModuleOptions,
+    ValidationModule,
+    GatewayModule,
+    WebSocketModule,
+  ],
 })
 export class AppModule {}
