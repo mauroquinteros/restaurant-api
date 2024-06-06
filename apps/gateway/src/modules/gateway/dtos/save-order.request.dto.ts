@@ -1,5 +1,10 @@
 import { IsEnum, IsNumber, IsOptional } from 'class-validator';
-import { Status } from '../../enums';
+
+export enum Status {
+  requested = 'requested',
+  preparing = 'preparing',
+  prepared = 'prepared',
+}
 
 export class SaveOrderRequestBody {
   @IsNumber()

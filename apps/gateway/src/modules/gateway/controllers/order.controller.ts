@@ -1,7 +1,7 @@
 import { Body, Controller, Get, Inject, Post } from '@nestjs/common';
 import { ClientProxy } from '@nestjs/microservices';
 import { lastValueFrom } from 'rxjs';
-import { SaveOrderDTO } from '../dtos';
+import { SaveOrderRequestBody } from '../dtos/save-order.request.dto';
 
 @Controller('orders')
 export class OrderController {
@@ -16,7 +16,7 @@ export class OrderController {
   }
 
   @Post()
-  async saveOrder(@Body() body: SaveOrderDTO.RequestBody) {
+  async saveOrder(@Body() body: SaveOrderRequestBody) {
     const newOrder = await lastValueFrom(
       this.client.send({ cmd: 'save_order' }, body),
     );
