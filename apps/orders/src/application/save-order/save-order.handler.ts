@@ -27,6 +27,7 @@ export class SaveOrderHandler implements ICommandHandler<SaveOrderCommand> {
     });
     const response = await order.save();
 
+    // TODO: Emitir evento de actualización de stock al WebSocket (order created)
     this.client.emit('update_stock', new UpdateStockEvent(order.id, recipes));
     return response;
   }

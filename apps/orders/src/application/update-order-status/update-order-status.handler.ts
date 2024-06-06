@@ -18,6 +18,7 @@ export class UpdateOrderStatusHandler implements ICommandHandler<UpdateOrderStat
       .exec();
 
     this.logger.log(`Order ${command.orderId} status updated to preparing`);
+    // TODO: Emitir evento de actualización de stock al WebSocket (requested to preparing)
     this.updateOrderToPrepared(command.orderId);
   }
 
@@ -25,6 +26,7 @@ export class UpdateOrderStatusHandler implements ICommandHandler<UpdateOrderStat
     setTimeout(async () => {
       try {
         await this.orderModel.updateOne({ _id: orderId, state: Status.preparing }, { state: Status.prepared }).exec();
+        // TODO: Emitir evento de actualización de estado al WebSocket (preparing to prepared)
         this.logger.log(`Order ${orderId} status updated to prepared`);
       } catch (error) {
         this.logger.error(`Failed to update order ${orderId} status to prepared`, error.stack);
