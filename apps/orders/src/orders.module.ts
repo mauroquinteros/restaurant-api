@@ -6,11 +6,11 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { GetOrdersHandler } from './application/get-orders';
 import { SaveOrderHandler } from './application/save-order';
 import { UpdateOrderStatusHandler } from './application/update-order-status';
-import { ConfigModuleOptions } from './infrastructure/config/config.options';
-import { OrderController } from './infrastructure/http';
-import { ValidationModule } from './infrastructure/http/validation/validation.module';
-import { MongoModule } from './infrastructure/persistence/databases';
-import { Order, OrderSchema } from './infrastructure/persistence/schemas';
+import { ConfigModuleOptions } from './config/config.options';
+import { OrderController } from './infrastructure/controllers/order.controller';
+import { ValidationModule } from './infrastructure/validation/validation.module';
+import { MongoModule } from './persistence/databases';
+import { Order, OrderSchema } from './persistence/schemas';
 
 @Module({
   imports: [

@@ -4,7 +4,7 @@ import { ClientProxy } from '@nestjs/microservices';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { Status } from '../../domain/enums';
-import { Order } from '../../infrastructure/persistence/schemas';
+import { Order } from '../../persistence/schemas';
 import { UpdateOrderStatusCommand } from './update-order-status.command';
 
 @CommandHandler(UpdateOrderStatusCommand)

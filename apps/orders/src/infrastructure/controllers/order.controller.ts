@@ -1,10 +1,11 @@
 import { Body, Controller } from '@nestjs/common';
 import { CommandBus, QueryBus } from '@nestjs/cqrs';
 import { EventPattern, MessagePattern } from '@nestjs/microservices';
-import { GetOrdersQuery, GetOrdersResponse } from '../../../application/get-orders';
-import { SaveOrderCommand } from '../../../application/save-order';
-import { UpdateOrderStatusCommand } from '../../../application/update-order-status';
-import { SaveOrderDTO, UpdateOrderStatusDTO } from '../dtos';
+import { GetOrdersQuery, GetOrdersResponse } from '../../application/get-orders';
+import { SaveOrderCommand } from '../../application/save-order';
+import { UpdateOrderStatusCommand } from '../../application/update-order-status';
+import { SaveOrderRequestBody } from '../dtos/save-order.request.dto';
+import { UpdateOrderStatusRequestBody } from '../dtos/update-order-status.request.dto';
 
 @Controller()
 export class OrderController {
@@ -16,12 +17,12 @@ export class OrderController {
   }
 
   @MessagePattern({ cmd: 'save_order' })
-  async saveOrder(@Body() body: SaveOrderDTO.RequestBody) {
+  async saveOrder(@Body() body: SaveOrderRequestBody) {
     return this.commandBus.execute(new SaveOrderCommand(body.quantity, body.status));
   }
 
   @EventPattern('update_order_status')
-  async updateOrderStatus(@Body() body: UpdateOrderStatusDTO.RequestBody) {
+  async updateOrderStatus(@Body() body: UpdateOrderStatusRequestBody) {
     this.commandBus.execute(new UpdateOrderStatusCommand(body.orderId));
   }
 }

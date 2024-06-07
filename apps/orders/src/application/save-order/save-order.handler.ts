@@ -6,7 +6,7 @@ import { Model } from 'mongoose';
 import { lastValueFrom } from 'rxjs';
 import { Recipes } from '../../domain/entities/recipes';
 import { IRecipe } from '../../domain/interfaces';
-import { Order } from '../../infrastructure/persistence/schemas';
+import { Order } from '../../persistence/schemas';
 import { SaveOrderCommand } from './save-order.command';
 import { UpdateStockEvent } from './udpate-stock.event';
 
