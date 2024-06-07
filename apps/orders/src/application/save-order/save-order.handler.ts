@@ -15,6 +15,7 @@ export class SaveOrderHandler implements ICommandHandler<SaveOrderCommand> {
   constructor(
     @InjectModel(Order.name) private orderModel: Model<Order>,
     @Inject('RECIPES_SERVICE') private client: ClientProxy,
+    @Inject('GATEWAY_SERVICE') private wsClient: ClientProxy,
   ) {}
 
   async execute(command: SaveOrderCommand): Promise<Order> {
@@ -27,7 +28,7 @@ export class SaveOrderHandler implements ICommandHandler<SaveOrderCommand> {
     });
     const response = await order.save();
 
-    // TODO: Emitir evento de actualización de stock al WebSocket (order created)
+    this.wsClient.emit('created_order', response);
     this.client.emit('update_stock', new UpdateStockEvent(order.id, recipes));
     return response;
   }

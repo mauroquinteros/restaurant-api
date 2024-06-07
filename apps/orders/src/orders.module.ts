@@ -31,6 +31,17 @@ import { Order, OrderSchema } from './infrastructure/persistence/schemas';
           },
         }),
       },
+      {
+        name: 'GATEWAY_SERVICE',
+        imports: [ConfigModule],
+        inject: [ConfigService],
+        useFactory: (config: ConfigService) => ({
+          transport: Transport.TCP,
+          options: {
+            port: config.get<number>('gateway.port'),
+          },
+        }),
+      },
     ]),
   ],
   controllers: [OrderController],
