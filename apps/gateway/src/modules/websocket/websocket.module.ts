@@ -1,6 +1,7 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { ClientsModule, Transport } from '@nestjs/microservices';
+import { WebSocketController } from './controllers/websocket.controller';
 import { AppWebSocketGateway } from './websocket.gateway';
 import { WebSocketService } from './websocket.service';
 
@@ -20,6 +21,7 @@ import { WebSocketService } from './websocket.service';
       },
     ]),
   ],
+  controllers: [WebSocketController],
   providers: [AppWebSocketGateway, WebSocketService],
   exports: [AppWebSocketGateway],
 })

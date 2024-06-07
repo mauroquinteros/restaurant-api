@@ -11,6 +11,7 @@ export const ConfigModuleOptions = ConfigModule.forRoot({
       .valid('development', 'test', 'production')
       .default('development'),
     SERVER_PORT: Joi.number().default(3000),
+    GATEWAY_PORT: Joi.number().default(3004),
     ORDERS_PORT: Joi.number().required(),
     RECIPES_PORT: Joi.number().required(),
   }),

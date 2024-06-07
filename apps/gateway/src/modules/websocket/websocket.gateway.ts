@@ -1,6 +1,5 @@
 import {
   OnGatewayConnection,
-  OnGatewayDisconnect,
   WebSocketGateway,
   WebSocketServer,
 } from '@nestjs/websockets';
@@ -12,9 +11,7 @@ import { WebSocketService } from './websocket.service';
     origin: '*',
   },
 })
-export class AppWebSocketGateway
-  implements OnGatewayConnection, OnGatewayDisconnect
-{
+export class AppWebSocketGateway implements OnGatewayConnection {
   @WebSocketServer() server: Server;
 
   constructor(private service: WebSocketService) {}
@@ -24,9 +21,5 @@ export class AppWebSocketGateway
 
     const orders = await this.service.getOrders();
     this.server.emit('get_orders', orders);
-  }
-
-  handleDisconnect(client: Socket) {
-    console.log(`Client disconnected: ${client.id}`);
   }
 }

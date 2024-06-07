@@ -3,6 +3,9 @@ export const configuration = () => ({
   server: {
     port: parseInt(process.env.SERVER_PORT, 10),
   },
+  gateway: {
+    port: parseInt(process.env.GATEWAY_PORT, 10),
+  },
   orders: {
     port: parseInt(process.env.ORDERS_PORT, 10),
   },
