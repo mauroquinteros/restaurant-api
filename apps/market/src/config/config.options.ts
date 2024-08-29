@@ -10,6 +10,6 @@ export const ConfigModuleOptions = ConfigModule.forRoot({
     NODE_ENV: Joi.string().valid('development', 'test', 'production').default('development'),
     SERVER_PORT: Joi.number().default(3000),
     MONGODB_URI: Joi.string().required(),
-    MARKET_URL: Joi.string().default('https://recruitment.alegra.com/api/farmers-market/buy'),
+    MARKET_URL: Joi.string(),
   }),
 });
