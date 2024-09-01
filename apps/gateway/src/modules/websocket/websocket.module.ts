@@ -15,6 +15,7 @@ import { WebSocketService } from './websocket.service';
         useFactory: (config: ConfigService) => ({
           transport: Transport.TCP,
           options: {
+            host: config.get<string>('orders.host'),
             port: config.get<number>('orders.port'),
           },
         }),

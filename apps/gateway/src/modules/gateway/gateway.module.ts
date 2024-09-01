@@ -15,6 +15,7 @@ import { RecipeController } from './controllers/recipe.controller';
         useFactory: (config: ConfigService) => ({
           transport: Transport.TCP,
           options: {
+            host: config.get<string>('orders.host'),
             port: config.get<number>('orders.port'),
           },
         }),
@@ -26,6 +27,7 @@ import { RecipeController } from './controllers/recipe.controller';
         useFactory: (config: ConfigService) => ({
           transport: Transport.TCP,
           options: {
+            host: config.get<string>('recipes.host'),
             port: config.get<number>('recipes.port'),
           },
         }),

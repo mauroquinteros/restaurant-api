@@ -12,7 +12,9 @@ export const ConfigModuleOptions = ConfigModule.forRoot({
       .default('development'),
     SERVER_PORT: Joi.number().default(3000),
     GATEWAY_PORT: Joi.number().default(3004),
+    ORDERS_HOST: Joi.string().default('localhost'),
     ORDERS_PORT: Joi.number().required(),
+    RECIPES_HOST: Joi.string().default('localhost'),
     RECIPES_PORT: Joi.number().required(),
   }),
 });

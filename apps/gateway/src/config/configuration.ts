@@ -7,9 +7,11 @@ export const configuration = () => ({
     port: parseInt(process.env.GATEWAY_PORT, 10),
   },
   orders: {
+    host: process.env.ORDERS_HOST,
     port: parseInt(process.env.ORDERS_PORT, 10),
   },
   recipes: {
+    host: process.env.RECIPES_HOST,
     port: parseInt(process.env.RECIPES_PORT, 10),
   },
 });
