@@ -1,0 +1,25 @@
+services:
+  gateway:
+    container_name: gateway-app
+    build: ./gateway
+    ports:
+      - 3000:3000
+    depends_on:
+      - orders
+      - recipes
+      - market
+  orders:
+    container_name: orders-app
+    build: ./orders
+    ports:
+      - 3001:3001
+  recipes:
+    container_name: recipes-app
+    build: ./recipes
+    ports:
+      - 3002:3002
+  market:
+    container_name: market-app
+    build: ./market
+    ports:
+      - 3003:3003
