@@ -32,6 +32,7 @@ import { Ingredient, IngredientSchema, Recipe, RecipeSchema } from './infrastruc
         useFactory: (config: ConfigService) => ({
           transport: Transport.TCP,
           options: {
+            host: config.get<string>('market.host'),
             port: config.get<number>('market.port'),
           },
         }),
@@ -43,6 +44,7 @@ import { Ingredient, IngredientSchema, Recipe, RecipeSchema } from './infrastruc
         useFactory: (config: ConfigService) => ({
           transport: Transport.TCP,
           options: {
+            host: config.get<string>('orders.host'),
             port: config.get<number>('orders.port'),
           },
         }),

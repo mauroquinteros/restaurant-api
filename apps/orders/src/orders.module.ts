@@ -27,6 +27,7 @@ import { Order, OrderSchema } from './persistence/schemas';
         useFactory: (config: ConfigService) => ({
           transport: Transport.TCP,
           options: {
+            host: config.get<string>('recipes.host'),
             port: config.get<number>('recipes.port'),
           },
         }),
@@ -38,6 +39,7 @@ import { Order, OrderSchema } from './persistence/schemas';
         useFactory: (config: ConfigService) => ({
           transport: Transport.TCP,
           options: {
+            host: config.get<string>('gateway.host'),
             port: config.get<number>('gateway.port'),
           },
         }),

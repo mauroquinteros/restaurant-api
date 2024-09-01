@@ -9,8 +9,10 @@ export const ConfigModuleOptions = ConfigModule.forRoot({
   validationSchema: Joi.object({
     NODE_ENV: Joi.string().valid('development', 'test', 'production').default('development'),
     SERVER_PORT: Joi.number().default(3000),
-    GATEWAY_PORT: Joi.number().default(3004),
+    RECIPES_HOST: Joi.string().default('localhost'),
     RECIPES_PORT: Joi.number().default(3002),
+    GATEWAY_HOST: Joi.string().default('localhost'),
+    GATEWAY_PORT: Joi.number().default(3004),
     MONGODB_URI: Joi.string().required(),
   }),
 });
