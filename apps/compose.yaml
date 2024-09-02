@@ -4,20 +4,30 @@ services:
     build: ./gateway
     ports:
       - 3000:3000
+      - 3004:3004
     depends_on:
       - orders
       - recipes
       - market
+    environment:
+      - ORDERS_HOST=orders
+      - RECIPES_HOST=recipes
   orders:
     container_name: orders-app
     build: ./orders
     ports:
       - 3001:3001
+    environment:
+      - RECIPES_HOST=recipes
+      - GATEWAY_HOST=gateway
   recipes:
     container_name: recipes-app
     build: ./recipes
     ports:
       - 3002:3002
+    environment:
+      - ORDERS_HOST=orders
+      - MARKET_HOST=market
   market:
     container_name: market-app
     build: ./market
