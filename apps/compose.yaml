@@ -3,7 +3,7 @@ services:
     container_name: gateway-app
     build: ./gateway
     ports:
-      - 80:3000
+      - 3000:3000
       - 3004:3004
     depends_on:
       - orders
