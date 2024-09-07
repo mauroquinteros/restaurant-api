@@ -17,13 +17,14 @@ export class UpdateOrderStatusHandler implements ICommandHandler<UpdateOrderStat
   ) {}
 
   async execute(command: UpdateOrderStatusCommand) {
-    await this.orderModel
-      .updateOne({ _id: command.orderId, state: Status.requested }, { state: Status.preparing })
-      .exec();
-
-    this.logger.log(`Order ${command.orderId} status updated to preparing`);
-    this.wsClient.emit('preparing_order', { _id: command.orderId });
-    this.updateOrderToPrepared(command.orderId);
+    setTimeout(async () => {
+      await this.orderModel
+        .updateOne({ _id: command.orderId, state: Status.requested }, { state: Status.preparing })
+        .exec();
+      this.logger.log(`Order ${command.orderId} status updated to preparing`);
+      this.wsClient.emit('preparing_order', { _id: command.orderId });
+      this.updateOrderToPrepared(command.orderId);
+    }, 10000);
   }
 
   async updateOrderToPrepared(orderId: string) {
