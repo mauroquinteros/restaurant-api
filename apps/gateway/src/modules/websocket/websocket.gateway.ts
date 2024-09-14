@@ -1,5 +1,6 @@
 import {
   OnGatewayConnection,
+  SubscribeMessage,
   WebSocketGateway,
   WebSocketServer,
 } from '@nestjs/websockets';
@@ -16,9 +17,12 @@ export class AppWebSocketGateway implements OnGatewayConnection {
 
   constructor(private service: WebSocketService) {}
 
-  async handleConnection(client: Socket) {
+  handleConnection(client: Socket) {
     console.log(`Client connected: ${client.id}`);
+  }
 
+  @SubscribeMessage('request_orders')
+  async handleEvent() {
     const orders = await this.service.getOrders();
     this.server.emit('get_orders', orders);
   }
