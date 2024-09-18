@@ -1,8 +1,7 @@
 import { format } from 'date-fns';
-import { Status } from '../../domain/enums';
-import { GetOrdersResponse, Order } from './get-orders.response.query';
+import { Order } from './get-orders.response.query';
 
-export class OrderReadModel {
+export class OrdersReadModel {
   private orders: Order[];
 
   constructor(orders: any) {
@@ -14,22 +13,7 @@ export class OrderReadModel {
     return new Order(order._id, order.quantity, order.state, order.recipes, createdAt);
   }
 
-  private groupListByKey(list: Order[], key: string) {
-    return list.reduce((acc, item) => {
-      acc[item[key]] = acc[item[key]] || [];
-      acc[item[key]].push(item);
-      return acc;
-    }, {} as GetOrdersResponse);
-  }
-
-  public toResponse(): GetOrdersResponse {
-    let groupedOrders = this.groupListByKey(this.orders, 'state');
-
-    Object.values(Status).forEach((status) => {
-      if (!(status in groupedOrders)) {
-        groupedOrders = { ...groupedOrders, [status]: [] };
-      }
-    });
-    return groupedOrders;
+  public toResponse(): Order[] {
+    return this.orders;
   }
 }

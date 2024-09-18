@@ -2,5 +2,5 @@
 import { IQuery } from '@nestjs/cqrs';
 
 export class GetOrdersQuery implements IQuery {
-  constructor() {}
+  constructor(public readonly fullList?: boolean) {}
 }
