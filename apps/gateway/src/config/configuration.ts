@@ -14,4 +14,8 @@ export const configuration = () => ({
     host: process.env.RECIPES_HOST,
     port: parseInt(process.env.RECIPES_PORT, 10),
   },
+  market: {
+    host: process.env.MARKET_HOST,
+    port: parseInt(process.env.MARKET_PORT, 10),
+  },
 });

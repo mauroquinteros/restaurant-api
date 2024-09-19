@@ -16,5 +16,7 @@ export const ConfigModuleOptions = ConfigModule.forRoot({
     ORDERS_PORT: Joi.number().required(),
     RECIPES_HOST: Joi.string().default('localhost'),
     RECIPES_PORT: Joi.number().required(),
+    MARKET_HOST: Joi.string().default('localhost'),
+    MARKET_PORT: Joi.number().required(),
   }),
 });
