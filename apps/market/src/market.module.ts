@@ -2,6 +2,7 @@ import { Module } from '@nestjs/common';
 import { CqrsModule } from '@nestjs/cqrs';
 import { MongooseModule } from '@nestjs/mongoose';
 import { BuyIngredientHandler } from './application/buy-ingredient';
+import { GetPurchasesHandler } from './application/get-purchases';
 import { ConfigModuleOptions } from './config/config.options';
 import { MarketController } from './infrastructure/controllers/market.controller';
 import { ValidationModule } from './infrastructure/validation/validation.module';
@@ -17,6 +18,6 @@ import { Market, MarketSchema } from './persistence/schemas';
     MongooseModule.forFeature([{ name: Market.name, schema: MarketSchema }]),
   ],
   controllers: [MarketController],
-  providers: [BuyIngredientHandler],
+  providers: [BuyIngredientHandler, GetPurchasesHandler],
 })
 export class RecipesModule {}
